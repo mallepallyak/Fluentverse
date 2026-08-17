@@ -1,0 +1,10 @@
+.venv/
+backend/.venv/
+__pycache__/
+*.pyc
+.env
+backend/.env
+backend/fluentverse.db
+node_modules/
+dist/
+.DS_Store
