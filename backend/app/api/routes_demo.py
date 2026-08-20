@@ -1,6 +1,8 @@
 from fastapi import APIRouter, HTTPException
 
-from app.ai.workflows.answer_workflow import process_answer_submission
+from app.ai.workflows.answer_graph import (
+    process_answer_submission_with_graph,
+)
 from app.ai.workflows.lesson_workflow import generate_demo_compare
 from app.database import list_mastery_for_profile
 from app.schemas.ai_outputs import (
@@ -29,7 +31,7 @@ def compare_lessons(request: DemoCompareRequest):
 
 @router.post("/submit-answer", response_model=SubmitAnswerResponse)
 def submit_answer(request: SubmitAnswerRequest):
-    return process_answer_submission(request)
+    return process_answer_submission_with_graph(request)
 
 
 @router.get("/profiles/{profile_id}/state", response_model=LearnerStateResponse)

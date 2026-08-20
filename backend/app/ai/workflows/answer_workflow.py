@@ -1,5 +1,4 @@
 from fastapi import HTTPException
-
 from app.ai.agents.answer_evaluator import evaluate_answer
 from app.ai.agents.learner_state_updater import update_persistent_mastery
 from app.ai.agents.next_lesson_planner import plan_next_lesson
@@ -7,6 +6,26 @@ from app.schemas.ai_outputs import SubmitAnswerRequest, SubmitAnswerResponse
 from app.seed.demo_exercise_bank import DEMO_EXERCISE_BANK
 from app.seed.demo_profiles import BEGINNER_PROFILE, INTERMEDIATE_PROFILE
 
+from typing import TypedDict
+
+from app.schemas.ai_outputs import (
+    AnswerEvaluation,
+    MasteryUpdate,
+    NextLessonPlan,
+)
+
+
+class AnswerWorkflowState(TypedDict, total=False):
+    profile_id: str
+    exercise_id: str
+    user_answer: str
+
+    correct_answer: str
+    target_concept: str
+
+    evaluation: AnswerEvaluation
+    updated_mastery: MasteryUpdate
+    next_lesson_plan: NextLessonPlan
 
 VALID_PROFILE_IDS = {
     BEGINNER_PROFILE["id"],
